@@ -1,0 +1,21 @@
+{
+  "name": "caltrain-bump-visualization",
+  "version": "0.0.1",
+  "authors": [
+    "Jeff Hunter <jeff@missioncriticallabs.com>"
+  ],
+  "description": "Data visualization of Caltriain Bump Reports",
+  "main": "index.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.1.4",
+    "d3": "3.5.5"
+  }
+}
