@@ -2,8 +2,12 @@ describe("process bumps", function() {
   
   var sheet;
   
-  beforeEach(function() {
-    sheet = new BumpSpreadSheet(testSSData);
+  beforeEach(function(done) {
+    BumpSpreadSheet.fromUrl('spec/fixtures/bump_spreadsheet.js', function(err, ss) {
+      if (err && console && console.error) console.error(err);
+      sheet = ss;
+      done();
+    });
   });
 
   describe("rows", function() {
@@ -59,6 +63,14 @@ describe("process bumps", function() {
       expect(sheet.bumpData()['Redwood City']).toBe(undefined);
     });
 
+  });
+  
+  describe("mostRecentReportDate", function() {
+    
+    it("should return the most recent bump data from the list", function() {
+      expect(sheet.mostRecentReportDate()).toEqual(new Date("05/13/2015"));
+    });
+    
   });
 
 });

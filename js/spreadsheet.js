@@ -89,6 +89,41 @@ $.extend(BumpSpreadSheet.prototype, {
     
     return this._consolidateBumps(bumps);
     
+  },
+  
+  /** Return the most recent bicycle bump date */
+  mostRecentReportDate: function() {
+    var maxDate = new Date("1/1/2015");
+    var rowCount = this.rows().length;
+    
+    for (var i = 0; i < rowCount; ++i) {
+      
+      var date     = new Date(this.cell(i, 'Date of bicycle bump(s)'));
+      var train    = this.cell(i, 'Train number');
+
+      if (String(train).trim() != '' && date > maxDate)
+        maxDate = date;
+    }
+    
+    return maxDate;
   }
   
 });
+
+/**
+ * Create a new spreadsheet by loading data from a URL
+ */
+BumpSpreadSheet.fromUrl = function(url, cb) {
+  $.ajax({
+    url: url,
+    method: 'GET',
+    cache: false,
+    dataType: 'json',
+    success: function(data) {
+      cb(undefined, new BumpSpreadSheet(data));
+    },
+    error: function(xhr, status) {
+      cb(new Error("Spreadsheet data retrieval failed with status "+status));
+    }
+  });
+}
