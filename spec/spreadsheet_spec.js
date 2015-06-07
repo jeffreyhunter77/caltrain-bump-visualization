@@ -1,5 +1,7 @@
 describe("process bumps", function() {
   
+  var sheet;
+  
   beforeEach(function() {
     sheet = new BumpSpreadSheet(testSSData);
   });
