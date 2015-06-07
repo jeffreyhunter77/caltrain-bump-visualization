@@ -60,6 +60,18 @@ $.extend(BumpSpreadSheet.prototype, {
     return bumps;
   },
   
+  /** Known station aliases */
+  _stationAliases: function() {
+    return this.stationAliases || {};
+  },
+  
+  /** Normalize the station name */
+  _normalizeStation: function(station) {
+    var aliases = this._stationAliases();
+    
+    return aliases[station] ? aliases[station] : station;
+  },
+  
   /** Return the summarized bump data from the spreadsheet */
   bumpData: function() {
     
@@ -70,7 +82,7 @@ $.extend(BumpSpreadSheet.prototype, {
       
       var date     = this.cell(i, 'Date of bicycle bump(s)');
       var count    = this.cell(i, 'Total number of bumped bikes');
-      var station  = this.cell(i, 'Departure station');
+      var station  = this._normalizeStation(this.cell(i, 'Departure station'));
       var train    = this.cell(i, 'Train number');
       var comments = this.cell(i, 'Comments');
       

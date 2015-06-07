@@ -31,6 +31,11 @@ var stations = [
 ]
 ;
 
+var stationAliases = {
+    "4th & King": "San Francisco",
+    "California Avenue": "California Ave"
+};
+
 var sbTrains = [
     "102",
     "104",

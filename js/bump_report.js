@@ -147,6 +147,8 @@ function BumpReport() {
       return;
     }
     
+    sheet.stationAliases = stationAliases;
+    
     lastFetched = sheet.mostRecentReportDate();
     bumps = sheet.bumpData();
 
