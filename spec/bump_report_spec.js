@@ -2,6 +2,9 @@ describe("updateTimeTable", function() {
   
   beforeEach(function() {
     stations = ['SF','Milbrae'];
+  });
+  
+  afterEach(function() {
     $('.northbound').html('');
   });
 
