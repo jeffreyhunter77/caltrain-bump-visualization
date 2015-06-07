@@ -127,3 +127,13 @@ BumpSpreadSheet.fromUrl = function(url, cb) {
     }
   });
 }
+
+/**
+ * Create a spreadsheet by loading data from Google
+ */
+BumpSpreadSheet.fromGoogle = function(key, id, cb) {
+  return BumpSpreadSheet.fromUrl(
+    'https://spreadsheets.google.com/feeds/list/' + encodeURIComponent(key) + '/' + encodeURIComponent(id) + '/public/full?alt=json',
+    cb
+  );
+}

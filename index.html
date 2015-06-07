@@ -2,144 +2,7 @@
 <html>
 <head>
   <title>Bump Report Example</title>
-  <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
-  <script type="text/javascript" charset="utf-8" src="bower_components/d3/d3.min.js"></script>
-  <style type="text/css">
-  body {
-    font-family: "adelle-sans", sans-serif;
-    font-size: 16px;
-    line-height: 150%;
-    background: #fff;
-    color: #404040;
-  }
-  
-  a {
-    color: #f39200;
-    text-decoration: none;
-  }
-  
-  h2 {
-    color: #212121;
-    font-weight: normal;
-    font-size: 46px;
-    font-family: "alternate-gothic-no-3-d", sans-serif;
-    line-height: 39px;
-    margin: 0 0 15px 0;
-    letter-spacing: -1px;
-    text-transform: uppercase;
-  }
-  
-  h2 .small {
-    font-family: "adelle-sans", sans-serif;
-    font-size: 14px;
-    letter-spacing: 0;
-    display: inline-box;
-    padding-left: 14px;
-  }
-  
-  .schedule {
-    margin: 0 0 2.5em 0;
-    padding: 0;
-    border-top: 1px solid #ddd;
-    width: 530px;
-  }
-
-  .schedule li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .schedule li:after {
-    content: '.';
-    width: 0;
-    height: 0;
-    display: block;
-    visibility: hidden;
-    clear: both;
-  }
-  
-  .schedule .station, .schedule .stop {
-    float: left;
-  }
-
-  .schedule .station {
-    width: 130px;
-    color: #212121;
-  }
-
-  .schedule .stop {
-    width: 40px;
-    text-align: center;
-  }
-  
-  .times {
-    margin: 0;
-    padding: 0 0 0 130px;
-    width: 400px;
-  }
-  
-  .times:after {
-    content: '.';
-    width: 0;
-    height: 0;
-    display: block;
-    visibility: hidden;
-    clear: both;
-  }
-  
-  .times .stop {
-    float: left;
-    width: 40px;
-    text-align: center;
-    color: #212121;
-  }
-  
-  .tip {
-    margin: 0;
-    padding: 5px;
-    position: absolute;
-    top: 283px;
-    left: 224px;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.2);
-  }
-  
-  .tip li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: 14px;
-  }
-  
-  .tip .arrow {
-    top: 38%;
-    left: -11px;
-    margin-top: 11px;
-    border-style: solid;
-    border-color: transparent;
-    border-right-color: #fff;
-    border-width: 11px;
-    border-left-width: 0;
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-  }
-  
-  .tip .arrow:after {
-    /*
-    bottom: -10px;
-    left: 1px;
-    content: " ";
-    border-right-color: #fff;
-    border-width: 10px;
-    border-left-width: 0;
-    */
-  }
-  </style>
+  <link rel="stylesheet" type="text/css" href="css/bump_report.css">
 </head>
 <body>
   <h2>Northbound Evening Bumps <a class="small" href="#">+ Expand</a></h2>
@@ -152,12 +15,19 @@
   <ul class="schedule southbound">
   </ul>
   
+  <!--
   <ul class="tip">
     <li class="arrow"></li>
   </ul>
+  -->
 
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="bower_components/d3/d3.min.js"></script>
   <script type="text/javascript" src="js/train_schedule.js"></script>
-  <script type="text/javascript" src="js/bumps.js"></script>
+  <script type="text/javascript" src="js/spreadsheet.js"></script>
   <script type="text/javascript" src="js/bump_report.js"></script>
+  <script type="text/javascript">
+    $(function() { new BumpReport(); });
+  </script>
 </body>
 </html>

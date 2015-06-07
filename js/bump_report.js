@@ -1,6 +1,5 @@
+
     var dataEpoch = new Date("1/1/2015");
-    var lastFetched = new Date("3/16/2015");
-    var elapsedDays = Math.round((lastFetched.getTime() - dataEpoch.getTime()) / (1000 * 60 * 60 * 24));
     
     function maxStationBumps(station) {
       return bumps[station] ?
@@ -46,22 +45,24 @@
       }));
     }
 
-    var bumpScale = d3.scale.linear()
-      .domain([0, maxBumps()])
-//      .range([45, 0]);
-      .range([1, .5]);
-    
-    var severityScale = d3.scale.linear()
-      .domain([0, maxSeverity()])
-//      .range([1, .5]);
-      .range([45, 0]);
-    
-    var bumpsPerDayScale = d3.scale.linear()
-      .domain([0, maxBumpsPerDay()])
-      .range([1, .5]);
-
     function stationData() {
       return stations.map(function(s, idx) { return {name: s, stationId: idx}; });
+    }
+    
+    function initBumpScale() {
+      elapsedDays = Math.round((lastFetched.getTime() - dataEpoch.getTime()) / (1000 * 60 * 60 * 24));
+
+      bumpScale = d3.scale.linear()
+        .domain([0, maxBumps()])
+        .range([1, .5]);
+
+      severityScale = d3.scale.linear()
+        .domain([0, maxSeverity()])
+        .range([45, 0]);
+
+      bumpsPerDayScale = d3.scale.linear()
+        .domain([0, maxBumpsPerDay()])
+        .range([1, .5]);
     }
     
     function updateTimeTable(target, trains, times) {
@@ -129,9 +130,31 @@
 
     }
     
+
+var elapsedDays;
+var lastFetched;
+var bumps;
+var bumpScale;
+var severityScale;
+var bumpsPerDayScale;
+
+function BumpReport() {
+  
+  BumpSpreadSheet.fromGoogle('11GEjnTjxrlkz3Hbux65_ltaHlw8ZWXxqpe8Z_oXd8Pg', 'okxhydg', function(err, sheet) {
+    
+    if (err) {
+      if (console && console.error) console.error(err);
+      return;
+    }
+    
+    lastFetched = sheet.mostRecentReportDate();
+    bumps = sheet.bumpData();
+
+    initBumpScale();
+  
     updateTimeTable('.northbound', nbTrains, nbTimes);
     updateTimeTable('.southbound', sbTrains, sbTimes);
-    
+  
     $('.schedule li').each(function(idx, elem) {
       $(elem).find('.stop').each(function(idx,stopElem) {
         if (parseInt(sbTrains[idx]) % 100 < 66 || parseInt(sbTrains[idx]) % 100 > 84)
@@ -145,18 +168,20 @@
           $(stopElem).hide();
       })
     });
-    
+  
     $('.schedule.northbound li').each(function(idx, elem) {
       $(elem).remove();
       if (idx < 24)
         $('.schedule.northbound').prepend(elem);
     });
-    
+  
     Object.keys(bumps["Redwood City"]["269"]).forEach(function(dte) {
       if (dte === "2/24/2015") return;
-      
+    
       var li = $('<li></li>');
       li.text(dte.replace(/\/\d{4}\s*$/, '') + ' - ' + bumps["Redwood City"]["269"][dte] + " cyclists bumped");
       $('.tip').prepend(li);
     });
-    
+
+  });
+}

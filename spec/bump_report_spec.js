@@ -2,6 +2,9 @@ describe("updateTimeTable", function() {
   
   beforeEach(function() {
     stations = ['SF','Milbrae'];
+    bumps = {};
+    lastFetched = new Date("05/14/2015");
+    initBumpScale();
   });
   
   afterEach(function() {
